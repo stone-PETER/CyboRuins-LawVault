@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'contact_management.dart';
 
 void main() {
   runApp(const MyApp());
