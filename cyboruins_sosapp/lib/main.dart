@@ -54,10 +54,19 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _addContact() {
-    setState(() {
-      _emergencyContacts.add('123-456-7890');
-    });
+  // void _addContact() {
+  //   setState(() {
+  //     _emergencyContacts.add('123-456-7890');
+  //   });
+  // }
+   void _openContactsPage() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ContactManagementPage(
+          contacts: _emergencyContacts,
+        ),
+      ),
+    );
   }
 
   @override
@@ -67,16 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
         actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              if (value == 'add_contact') _addContact();
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'add_contact',
-                child: Text('Add Contact'),
-              ),
-            ],
+          IconButton(
+            icon: const Icon(Icons.contacts),
+            onPressed: _openContactsPage,
           ),
         ],
       ),
