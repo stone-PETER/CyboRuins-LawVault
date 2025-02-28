@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -33,13 +35,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   final List<String> _emergencyContacts = [];
+  String _sosMessage = "Press the button to send SOS!"; // Default message
 
   Future<void> _sendSOS() async {
-    Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    );
-    final message = 'SOS! Need help at: '
-        'https://maps.google.com/?q=${position.latitude},${position.longitude}';
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      setState(() {
+        _sosMessage = 'SOS! Need help at: '
+            'https://maps.google.com/?q=${position.latitude},${position.longitude}';
+      });
+    } catch (e) {
+      setState(() {
+        _sosMessage = "Failed to get location. Please enable GPS.";
+      });
+    }
   }
 
   void _addContact() {
@@ -79,6 +91,15 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: _sendSOS,
               child: const Text('Send SOS'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                _sosMessage,
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
             Text(
               '$_counter',

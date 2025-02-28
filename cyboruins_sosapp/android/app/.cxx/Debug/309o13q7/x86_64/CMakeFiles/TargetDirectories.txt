@@ -1,0 +1,2 @@
+D:/Mikku/Hackify/CyboRuins-SOSApp/cyboruins_sosapp/android/app/.cxx/Debug/309o13q7/x86_64/CMakeFiles/edit_cache.dir
+D:/Mikku/Hackify/CyboRuins-SOSApp/cyboruins_sosapp/android/app/.cxx/Debug/309o13q7/x86_64/CMakeFiles/rebuild_cache.dir
