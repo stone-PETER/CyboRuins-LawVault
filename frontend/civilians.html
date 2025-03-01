@@ -13,15 +13,23 @@
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
+            <li><button onclick="logout()">Logout</button></li>
         </ul>
     </nav>
     <main>
-        <button onclick="submitCase()">Submit Case</button>
-        <button onclick="trackCase()">Track Case</button>
+        <section class="actions">
+            <button onclick="uploadEvidence()">Upload Evidence (For Scrutiny)</button>
+            <button onclick="viewCaseStatements()">View Case Statements</button>
+        </section>
+
+        <section id="case-statements" class="hidden">
+            <h2>Case Statements</h2>
+            <ul id="case-list"></ul>
+        </section>
     </main>
     <footer>
         <p>&copy; 2025 CyboRuins. All rights reserved.</p>
     </footer>
-    <script src="js/dashboard.js"></script>
+    <script src="js/civilian-dashboard.js"></script>
 </body>
 </html>

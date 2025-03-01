@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to right, #141e30, #243b55);
@@ -6,14 +7,17 @@ body {
     color: #eee;
 }
 
+/* Header */
 header {
     text-align: center;
     padding: 20px;
     background: #1f1f1f;
     color: #ffcc00;
     font-size: 24px;
+    font-weight: bold;
 }
 
+/* Navigation Bar */
 nav {
     background: rgba(0, 0, 0, 0.8);
     padding: 15px;
@@ -31,7 +35,8 @@ nav ul li {
     margin: 0 15px;
 }
 
-nav ul li a, nav ul li button {
+nav ul li a, 
+nav ul li button {
     color: #ffcc00;
     background: none;
     border: none;
@@ -41,10 +46,18 @@ nav ul li a, nav ul li button {
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover, nav ul li button:hover {
+nav ul li a:hover, 
+nav ul li button:hover {
     color: #ff6600;
 }
 
+/* Main Content */
+main {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Action Buttons */
 .actions {
     display: flex;
     justify-content: center;
@@ -53,7 +66,7 @@ nav ul li a:hover, nav ul li button:hover {
 }
 
 .actions button {
-    padding: 15px;
+    padding: 15px 20px;
     margin: 10px;
     background: #ff6600;
     color: white;
@@ -61,51 +74,76 @@ nav ul li a:hover, nav ul li button:hover {
     border-radius: 5px;
     cursor: pointer;
     font-size: 18px;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .actions button:hover {
     background: #ff3300;
+    transform: scale(1.05);
 }
 
-.designation-section {
+/* Case Statements Section */
+#case-statements {
+    display: none; /* Initially hidden */
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
     text-align: center;
-    margin-top: 20px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.designation-section form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#case-statements h2 {
+    color: #ffcc00;
 }
 
-.designation-section input {
-    padding: 10px;
+#case-list {
+    list-style: none;
+    padding: 0;
+}
+
+#case-list li {
+    background: rgba(255, 255, 255, 0.2);
     margin: 10px;
-    border-radius: 5px;
-    border: none;
-    font-size: 16px;
-}
-
-.designation-section button {
     padding: 10px;
-    background: #ffcc00;
-    border: none;
     border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    transition: background 0.3s ease;
 }
 
-.designation-section button:hover {
-    background: #ff9900;
+#case-list li:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
+/* Footer */
 footer {
     text-align: center;
     padding: 15px;
-    background: rgba(0, 0, 0, 0.8);
+    background: #1f1f1f;
     color: #ffcc00;
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+/* Hidden Elements */
+.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .actions button {
+        width: 80%;
+    }
+
+    #case-statements {
+        width: 90%;
+    }
 }
