@@ -1,24 +1,31 @@
 import google.generativeai as genai
 import os
 from dotenv import load_dotenv
+from model.src.search_legal_docs import search_legal_docs
 
-# Load environment variables from .env file
+# Load API Key and configure
 load_dotenv()
-
-# Get API key from environment variable
-api_key = os.getenv("GEMINI_API_KEY")
-
-if not api_key:
-    raise ValueError("❌ ERROR: GEMINI_API_KEY not found in .env file!")
-
-# Configure Gemini API
-genai.configure(api_key=api_key)
+API_KEY = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=API_KEY)
 
 
-def chat_with_gemini(user_input, pdf_texts):
-    """Fetch relevant legal info & get AI response."""
-    relevant_docs = "\n".join(pdf_texts.values())[:2000]  # Limit context
-    prompt = f"Legal Advisory AI:\nContext: {relevant_docs}\n\nUser Query: {user_input}\n\nAnswer:"
+def chat_with_gemini(user_input):
+    try:
+        # Get relevant documents
+        relevant_docs = search_legal_docs(user_input, top_k=3)
+        context = "\n".join(relevant_docs)
 
-    response = genai.chat(messages=[{"role": "user", "content": prompt}])
-    return response.text
+        # Create prompt
+        prompt = f"Legal Advisory AI:\nContext: {context}\n\nUser Query: {user_input}\n\nAnswer:"
+
+        # Generate response using Gemini Pro
+        model = genai.GenerativeModel('gemini-2.0-flash')
+        response = model.generate_content(prompt)
+
+        return response.text
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+
+if __name__ == "__main__":
+    print(chat_with_gemini("What are the laws for cybercrime in India?"))

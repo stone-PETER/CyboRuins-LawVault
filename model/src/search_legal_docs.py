@@ -1,10 +1,20 @@
-def search_relevant_text(query, pdf_texts, max_results=3):
-    """Find legal documents related to user query."""
-    relevant_texts = []
-    query_words = set(query.lower().split())
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
 
-    for file, text in pdf_texts.items():
-        if any(word in text.lower() for word in query_words):
-            relevant_texts.append(f"{file}: {text[:500]}")  # Limit text size
+# Load FAISS Index & Model
+model = SentenceTransformer("all-MiniLM-L6-v2")
+index = faiss.read_index("model/data/legal_faiss.index")
+doc_names = np.load("model/data/doc_names.npy")
 
-    return relevant_texts[:max_results]
+
+def search_legal_docs(query, top_k=3):
+    query_embedding = model.encode([query], convert_to_numpy=True)
+    distances, indices = index.search(query_embedding, top_k)
+
+    relevant_docs = [doc_names[idx] for idx in indices[0]]
+    return relevant_docs
+
+
+if __name__ == "__main__":
+    print(search_legal_docs("What is the punishment for fraud?"))

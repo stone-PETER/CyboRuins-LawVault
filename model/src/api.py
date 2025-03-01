@@ -1,15 +1,21 @@
 from fastapi import FastAPI
-from gemini_chatbot import chat_with_gemini
-from extract_pdfs import extract_text_from_pdfs
+from pydantic import BaseModel
+from model.src.gemini_chatbot import chat_with_gemini
 
 app = FastAPI()
 
-pdf_texts = extract_text_from_pdfs("model/data/temp_pdfs")  # Load legal docs
+
+class Query(BaseModel):
+    question: str
 
 
-@app.get("/legal-advisory/")
-def legal_advisory(query: str):
-    answer = chat_with_gemini(query, pdf_texts)
-    return {"query": query, "response": answer}
+@app.post("/legal-advisory/")
+def get_legal_advice(query: Query):
+    print("hi")
+    response = chat_with_gemini(query.question)
+    return {"response": response}
 
-# Run: uvicorn src.api:app --reload
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
