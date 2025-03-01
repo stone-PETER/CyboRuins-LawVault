@@ -1,0 +1,5 @@
+google-generativeai
+fastapi
+uvicorn
+PyPDF2
+zipfile36
