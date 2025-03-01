@@ -13,11 +13,25 @@
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
+            <li><button onclick="logout()">Logout</button></li>
         </ul>
     </nav>
     <main>
-        <button onclick="viewCases()">View Cases</button>
-        <button onclick="reviewEvidence()">Review Evidence</button>
+        <section class="designation-section">
+            <h2>Enter Your Designation</h2>
+            <form id="designation-form">
+                <label for="designation">Designation:</label>
+                <input type="text" id="designation" required>
+                <button type="submit">Save</button>
+            </form>
+        </section>
+
+        <section class="actions">
+            <button onclick="fileFIR()">File FIR</button>
+            <button onclick="uploadPoliceEvidence()">Upload Evidence (Police)</button>
+            <button onclick="addCaseStatement()">Add Case Statement (Court)</button>
+            <button onclick="uploadCourtEvidence()">Upload Evidence (Court)</button>
+        </section>
     </main>
     <footer>
         <p>&copy; 2025 CyboRuins. All rights reserved.</p>
